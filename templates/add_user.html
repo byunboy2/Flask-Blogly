@@ -1,0 +1,12 @@
+{%extends 'index.html'%}
+{% block content %}
+<form action="/users/new" method="POST">
+    <label for="first_name">First name:</label>
+    <input type="text" name="first_name">
+    <label for="last_name">Last name:</label>
+    <input type="text" name="last_name">
+    <label for="image_url">Your image url here:</label>
+    <input type="text" name="image_url">
+    <button type="submit">Add User</button>
+</form>
+{% endblock %}

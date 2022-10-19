@@ -8,9 +8,9 @@ def connect_db(app):
     db.init_app(app)
 
 class User(db.Model):
-    """User"""
+    """Users"""
 
-    __table__name = "User"
+    __table__name = "Users"
 
     id = db.Column(db.Integer,primary_key=True,autoincrement=True)
     first_name = db.Column(db.String(50),nullable = False, unique = True)

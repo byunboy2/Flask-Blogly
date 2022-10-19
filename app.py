@@ -21,4 +21,10 @@ def load_home():
 def load_user():
     """Load currently saved users"""
     users = User.query.all()
-    return render_template("index.html", users = users)
+    return render_template("display_users.html", users = users)
+
+@app.get("/user/new")
+def add_user():
+    """Add new user to list"""
+    return render_template("add_user.html")
+
