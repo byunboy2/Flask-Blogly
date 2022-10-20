@@ -22,15 +22,16 @@ class User(db.Model):
     image_url = db.Column(db.String(500), nullable=False, unique=False)
 
 
-class Posts(db.Model):
+class Post(db.Model):
     """Posts"""
 
-    __tablename__ = "Posts"
+    __tablename__ = "posts"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.String(100), nullable=False, unique=False)
     content = db.Column(db.String(10000), nullable=False, unique=False)
     created_at = db.Column(db.DateTime, default = datetime.utcnow)
     post_id = db.Column(db.Integer, db.ForeignKey("users.id"),primary_key=True)
+    
     # direct navigation: .post to user and back
     post = db.relationship('User',backref = 'post')

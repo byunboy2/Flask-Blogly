@@ -1,7 +1,7 @@
 """Blogly application."""
 
 from flask import Flask, redirect, render_template, request, flash
-from models import db, connect_db, User
+from models import db, connect_db, User, Post
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blog_model'
@@ -25,7 +25,7 @@ def load_home():
 def load_user():
     """Load currently saved users"""
 
-    users = User.query.all() #order by users
+    users = User.query.all()  # order by users
     return render_template("display_users.html", users=users)
 
 
@@ -95,12 +95,12 @@ def save_edit(user_id):
     last_name = request.form["last_name"]
     image_url = request.form["image_url"]
 
-    get_user = User.query.get_or_404(user_id)
-    get_user.first_name = first_name
-    get_user.last_name = last_name
-    get_user.image_url = image_url
+    user = User.query.get_or_404(user_id)
+    user.first_name = first_name
+    user.last_name = last_name
+    user.image_url = image_url
 
-    db.session.add(get_user)
+    db.session.add(user)
     db.session.commit()
 
     return redirect("/")
@@ -114,7 +114,29 @@ def delete_user(user_id):
     db.session.commit()
     return redirect("/")
 
-@app.get("/users/<int:user_id/posts/new>")
+
+@app.get("/users/<int:user_id>/posts/new")
 def show_add_form(user_id):
-    current_user = User.query.get_or_404(user_id)
-    return render_template("add_posts.html",user=current_user)
+    user = User.query.get_or_404(user_id)
+    return render_template("add_posts.html", user=user)
+
+
+@app.post("/users/<int:user_id>/posts/new")
+def add_post_for_user(user_id):
+
+    title = request.form["title"]
+    content = request.form["content"]
+
+    user = User.query.get_or_404(user_id)
+    
+    post = Post(
+        title=title,
+        content=content,
+        post_id=user.id
+    )
+
+    db.session.add(post)
+    db.session.commit()
+
+    return redirect(f"/users/{user_id}")
+
