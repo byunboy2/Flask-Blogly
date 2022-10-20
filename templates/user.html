@@ -1,0 +1,9 @@
+{%extends "index.html"%}
+{%block content%}
+<form>
+<img src="" alt="image">
+{{user.first_name}} {{user.last_name}}
+<button type="submit" formaction ="/users/{{user.id}}/edit" formmethod="GET">Edit</button>
+<button type="submit" formaction ="/users/{{user.id}}/delete" formmethod="POST">Delete</button>
+</form>
+{%endblock%}
