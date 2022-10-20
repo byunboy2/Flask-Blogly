@@ -2,9 +2,11 @@
 {%block content%}
 <!--user page rendered (comment for testing)-->
 <form>
-<img src="" alt="image">
+<img src="" alt="first_name last_name">
 {{user.first_name}} {{user.last_name}}
-<button type="submit" formaction ="/users/{{user.id}}/edit" formmethod="GET">Edit</button>
-<button type="submit" formaction ="/users/{{user.id}}/delete" formmethod="POST">Delete</button>
+<button type="submit" formaction ="/users/{{user.id}}/edit" formmethod="GET">
+Edit</button>
+<button type="submit" formaction ="/users/{{user.id}}/delete" formmethod="POST">
+Delete</button>
 </form>
 {%endblock%}

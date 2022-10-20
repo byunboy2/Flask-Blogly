@@ -25,7 +25,7 @@ def load_home():
 def load_user():
     """Load currently saved users"""
 
-    users = User.query.all()
+    users = User.query.all() #order by users
     return render_template("display_users.html", users=users)
 
 
@@ -75,16 +75,16 @@ def process_new_user():
 def show_user_info(user_id):
     """Display information about user"""
 
-    get_user = User.query.get_or_404(user_id)
-    return render_template("user.html", user=get_user)
+    user = User.query.get_or_404(user_id)
+    return render_template("user.html", user=user)
 
 
 @app.get("/users/<int:user_id>/edit")
 def edit_user(user_id):
     """Shows edit page for user"""
 
-    get_user = User.query.get_or_404(user_id)
-    return render_template("edit.html", user=get_user)
+    user = User.query.get_or_404(user_id)
+    return render_template("edit.html", user=user)
 
 
 @app.post("/users/<int:user_id>/edit")
@@ -113,3 +113,8 @@ def delete_user(user_id):
     User.query.filter(User.id == user_id).delete()
     db.session.commit()
     return redirect("/")
+
+@app.get("/users/<int:user_id/posts/new>")
+def show_add_form(user_id):
+    current_user = User.query.get_or_404(user_id)
+    return render_template("add_posts.html",user=current_user)
