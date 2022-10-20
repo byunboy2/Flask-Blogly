@@ -1,12 +1,16 @@
 {%extends 'index.html'%}
 {% block content %}
+<!-- add user template rendered (comment for testing)-->
 <form action="/users/new" method="POST">
+    {% for msg in get_flashed_messages() %}
+        <p>{{msg}}</p>
+    {% endfor %}
     <label for="first_name">First name:</label>
-    <input type="text" name="first_name">
+    <input type="text" name="first_name" value = "{{first_name}}">
     <label for="last_name">Last name:</label>
-    <input type="text" name="last_name">
+    <input type="text" name="last_name" value = "{{last_name}}">
     <label for="image_url">Your image url here:</label>
-    <input type="text" name="image_url">
+    <input type="text" name="image_url" value = "{{image_url}}">
     <button type="submit">Add User</button>
 </form>
 {% endblock %}
