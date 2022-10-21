@@ -84,7 +84,7 @@ def edit_user(user_id):
     """Shows edit page for user"""
 
     user = User.query.get_or_404(user_id)
-    return render_template("edit.html", user=user)
+    return render_template("edit_name.html", user=user)
 
 
 @app.post("/users/<int:user_id>/edit")
@@ -146,9 +146,25 @@ def show_post(post_id):
     return render_template("post_detail.html",post=post)
 
 @app.get("/posts/<int:post_id>/edit")
-def edit_post(post_id):
+def render_edit_post_page(post_id):
     post = Post.query.get_or_404(post_id)
     return render_template("edit_post.html", post=post)
 
-# @app.post("/posts/<int:post_id>/edit")
+@app.post("/posts/<int:post_id>/edit")
+def edit_post(post_id):
+    title = request.form["title"]
+    content = request.form["content"]
 
+    post = Post.query.get_or_404(post_id)
+
+    post = Post(
+        title=title,
+        content=content,
+        user_id=post.user.id,
+        created_at = post.created_at
+    )
+
+    db.session.add(post)
+    db.session.commit()
+
+    return redirect(f"/posts/{post_id}")
