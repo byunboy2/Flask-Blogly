@@ -13,7 +13,7 @@ def connect_db(app):
 
 class User(db.Model):
     """Users"""
-    # direct navigation: user to .post and back
+    
     __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -21,6 +21,7 @@ class User(db.Model):
     last_name = db.Column(db.String(50), nullable=False, unique=False)
     image_url = db.Column(db.String(500), nullable=False, unique=False)
 
+    # direct navigation: user to .posts and back
 
 class Post(db.Model):
     """Posts"""
@@ -33,6 +34,6 @@ class Post(db.Model):
     created_at = db.Column(db.DateTime, default = datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
-    # direct navigation: .post to user and back
+    # direct navigation: .posts to user and back
 
     user = db.relationship('User',backref = 'posts')

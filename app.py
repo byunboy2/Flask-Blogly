@@ -140,8 +140,15 @@ def add_post_for_user(user_id):
 
     return redirect(f"/users/{user_id}")
 
-@app.get("/post/<int:post_id>")
+@app.get("/posts/<int:post_id>")
 def show_post(post_id):
     post = Post.query.get_or_404(post_id)
     return render_template("post_detail.html",post=post)
+
+@app.get("/posts/<int:post_id>/edit")
+def edit_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    return render_template("edit_post.html", post=post)
+
+# @app.post("/posts/<int:post_id>/edit")
 

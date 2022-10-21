@@ -40,8 +40,8 @@ class UserViewTestCase(TestCase):
         )
 
         second_user = User(
-            first_name="test_first_two",
-            last_name="test_last_two",
+            first_name="test_two_first",
+            last_name="test_two_last",
             image_url='test2',
         )
 
