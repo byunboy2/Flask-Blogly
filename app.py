@@ -128,15 +128,20 @@ def add_post_for_user(user_id):
     content = request.form["content"]
 
     user = User.query.get_or_404(user_id)
-    
+
     post = Post(
         title=title,
         content=content,
-        post_id=user.id
+        user_id=user.id
     )
 
     db.session.add(post)
     db.session.commit()
 
     return redirect(f"/users/{user_id}")
+
+@app.get("/post/<int:post_id>")
+def show_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    return render_template("post_detail.html",post=post)
 

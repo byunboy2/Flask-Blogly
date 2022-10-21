@@ -31,7 +31,8 @@ class Post(db.Model):
     title = db.Column(db.String(100), nullable=False, unique=False)
     content = db.Column(db.String(10000), nullable=False, unique=False)
     created_at = db.Column(db.DateTime, default = datetime.utcnow)
-    post_id = db.Column(db.Integer, db.ForeignKey("users.id"),primary_key=True)
-    
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+
     # direct navigation: .post to user and back
-    post = db.relationship('User',backref = 'post')
+
+    user = db.relationship('User',backref = 'posts')
